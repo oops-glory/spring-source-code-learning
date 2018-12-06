@@ -26,10 +26,9 @@ spring 源码学习，使用的版本为 `5.0.6.RELEASE`，对源码进行注释
 
 依然报错 `GroovyDynamicElementReader cannot be resolved to a type`，需要安装一个 eclipse 的 groovy 插件，
 
-step 1：检查自己的 eclipse 版本：在 help->About Eclipse 中查看：
-step 2：进入 https://github.com/groovy/groovy-eclipse/wiki 查找和自己 eclipse 对应版本的 groovy
-
-在 eclipse的 `Help -> Install New Software` 中，添加 `groovy` 的下载链接: http://dist.springsource.org/milestone/GRECLIPSE/这里不同的 eclipse 对应版本也不同/ 全选后，开始下载，下载完成，重启 eclipse，然后 clean 一下项目就搞定了。
+1. 检查自己的 eclipse 版本：在 help->About Eclipse 中查看
+2. 进入 https://github.com/groovy/groovy-eclipse/wiki 查找和自己 eclipse 对应版本的 groovy
+3. 在 eclipse的 `Help -> Install New Software` 中，添加 `groovy` 的下载链接: http://dist.springsource.org/milestone/GRECLIPSE/这里不同的 eclipse 对应版本也不同/ 全选后，开始下载，下载完成，重启 eclipse，然后 clean 一下项目就搞定了。
 
 注意：一定要安装对应版本的插件，否则无效。
 
