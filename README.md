@@ -9,4 +9,4 @@ Spring Framework 源码学习，使用的版本为 `5.0.6.RELEASE`，对源码�
 
 源码解析
 
-* [refresh 流程]()
+* [refresh 流程](https://github.com/pleuvoir/spring-source-code-learning/blob/master/docs/02-refresh%20%E6%B5%81%E7%A8%8B.md)
