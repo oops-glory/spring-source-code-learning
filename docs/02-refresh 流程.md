@@ -8,70 +8,72 @@
 
 ```java
 public void refresh() throws BeansException, IllegalStateException {
-synchronized (this.startupShutdownMonitor) {
-	// 1. 准备刷新的上下文环境
-	prepareRefresh();
-
-	// 2. 初始化 beanFactory 并进行 XML 文件读取，这里会在父类构造方法中偷偷创建创建 DefaultListableBeanFactory 对象
-	// public GenericApplicationContext() {
-	//		this.beanFactory = new DefaultListableBeanFactory();
-	// }
-	ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();
-
-	// 3. 对 beanFactory 进行功能填充
-	prepareBeanFactory(beanFactory);
-
-	try {
-		// 4. 子类覆盖方法做额外的处理
-		postProcessBeanFactory(beanFactory);
-
-		// 5. 激活各种 beanFactory 处理器
-		invokeBeanFactoryPostProcessors(beanFactory);
-
-		// 6. 注册拦截 bean 创建的 bean 处理器，这里只是注册，真正的调用是在 getBean 的时候
-		registerBeanPostProcessors(beanFactory);
-
-		// 7. 为上下文初始化 Message 源，即国际化
-		initMessageSource();
-
-		// 8. 初始化事件派发器，并放入 applicationEventMulticaster bean 中
-		initApplicationEventMulticaster();
-
-		// 9. 留给子类来初始化其它的 bean
-		onRefresh();
-
-		// 10. 在所有注册 bean 中查找 Listener bean，并注册到消息派发器中
-		registerListeners();
-
-		// 11. 初始化剩下的单例 （非 lazy 的）
-		finishBeanFactoryInitialization(beanFactory);
-
-		// 12. 最后一步，完成刷新，通知生命周期处理器 lifecycleProcessor 刷新过程，同时发出 contextRefreshEvent 通知别人
-		finishRefresh();
-	}
-
-	catch (BeansException ex) {
-		if (logger.isWarnEnabled()) {
-			logger.warn("Exception encountered during context initialization - " +
-					"cancelling refresh attempt: " + ex);
+	synchronized (this.startupShutdownMonitor) {
+		// 1. 准备刷新的上下文环境
+		prepareRefresh();
+	
+		// 2. 初始化 beanFactory 并进行 XML 文件读取，
+		//    这里会在父类构造方法中偷偷创建创建 DefaultListableBeanFactory 对象
+		// public GenericApplicationContext() {
+		//		this.beanFactory = new DefaultListableBeanFactory();
+		// }
+		ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();
+	
+		// 3. 对 beanFactory 进行功能填充
+		prepareBeanFactory(beanFactory);
+	
+		try {
+			// 4. 子类覆盖方法做额外的处理
+			postProcessBeanFactory(beanFactory);
+	
+			// 5. 激活各种 beanFactory 处理器
+			invokeBeanFactoryPostProcessors(beanFactory);
+	
+			// 6. 注册拦截 bean 创建的 bean 处理器，这里只是注册，真正的调用是在 getBean 的时候
+			registerBeanPostProcessors(beanFactory);
+	
+			// 7. 为上下文初始化 Message 源，即国际化
+			initMessageSource();
+	
+			// 8. 初始化事件派发器，并放入 applicationEventMulticaster bean 中
+			initApplicationEventMulticaster();
+	
+			// 9. 留给子类来初始化其它的 bean
+			onRefresh();
+	
+			// 10. 在所有注册 bean 中查找 Listener bean，并注册到消息派发器中
+			registerListeners();
+	
+			// 11. 初始化剩下的单例 （非 lazy 的）
+			finishBeanFactoryInitialization(beanFactory);
+	
+			// 12. 最后一步，完成刷新，通知生命周期处理器 lifecycleProcessor 刷新过程，
+			// 同时发出 contextRefreshEvent 通知别人
+			finishRefresh();
 		}
-
-		// Destroy already created singletons to avoid dangling resources.
-		destroyBeans();
-
-		// Reset 'active' flag.
-		cancelRefresh(ex);
-
-		// Propagate exception to caller.
-		throw ex;
+	
+		catch (BeansException ex) {
+			if (logger.isWarnEnabled()) {
+				logger.warn("Exception encountered during context initialization - " +
+						"cancelling refresh attempt: " + ex);
+			}
+	
+			// Destroy already created singletons to avoid dangling resources.
+			destroyBeans();
+	
+			// Reset 'active' flag.
+			cancelRefresh(ex);
+	
+			// Propagate exception to caller.
+			throw ex;
+		}
+	
+		finally {
+			// Reset common introspection caches in Spring's core, since we
+			// might not ever need metadata for singleton beans anymore...
+			resetCommonCaches();
+		}
 	}
-
-	finally {
-		// Reset common introspection caches in Spring's core, since we
-		// might not ever need metadata for singleton beans anymore...
-		resetCommonCaches();
-	}
-}
 }
 ```
 
