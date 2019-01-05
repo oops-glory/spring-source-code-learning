@@ -129,4 +129,16 @@ public class MyAppBootstrap extends AnnotationConfigApplicationContext {
 
 ### 2. obtainFreshBeanFactory
 
+刷新并获得工厂
+
+```java
+protected ConfigurableListableBeanFactory obtainFreshBeanFactory() {
+	// 刷新工厂，其中  GenericApplicationContext 会在构造方法中 new DefaultListableBeanFactory() 
+	//  refreshBeanFactory() 修改为已刷新，并设置  serializationId
+	refreshBeanFactory();
+	// 返回创建的 DefaultListableBeanFactory
+	return getBeanFactory();
+}
+```
+
 // TODO

@@ -23,7 +23,7 @@ import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
- * 测试第一次源码正确进入 debug 模式
+ * 鍏ュ彛娴嬭瘯
  * @author pleuvoir
  */
 public class ChapterTest01 {

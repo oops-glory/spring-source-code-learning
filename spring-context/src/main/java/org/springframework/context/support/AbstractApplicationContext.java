@@ -623,7 +623,10 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	 * @see #getBeanFactory()
 	 */
 	protected ConfigurableListableBeanFactory obtainFreshBeanFactory() {
+		// 刷新工厂，其中  GenericApplicationContext 会在构造方法中 new DefaultListableBeanFactory() 
+		//  refreshBeanFactory() 修改为已刷新，并设置  serializationId
 		refreshBeanFactory();
+		// 返回创建的 DefaultListableBeanFactory
 		return getBeanFactory();
 	}
 
